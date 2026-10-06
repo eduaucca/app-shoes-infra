@@ -1,0 +1,22 @@
+resources:
+  requests:
+    memory: "2Gi"
+    cpu: "500m"
+  limits:
+    memory: "4Gi"
+    cpu: "2000m"
+
+sonarProperties:
+  sonar.search.javaAdditionalOpts: "-Xmx1G -Xms1G"
+  sonar.web.javaOpts: "-Xmx512m -Xms512m"
+  sonar.ce.javaOpts: "-Xmx512m -Xms512m"
+
+monitoringPasscode: "admin123"
+
+community:
+  enabled: true
+
+startupProbe:
+  initialDelaySeconds: 90
+  periodSeconds: 10
+  failureThreshold: 30

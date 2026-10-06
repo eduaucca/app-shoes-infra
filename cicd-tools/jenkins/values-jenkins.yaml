@@ -40,12 +40,12 @@ controller:
   componentName: "jenkins-controller"
   image:
     # -- Controller image registry
-    registry: "docker.io"
+    registry: "acrshoesedu2026.azurecr.io"
     # -- Controller image repository
-    repository: "jenkins/jenkins"
+    repository: "jenkins-custom"
 
     # -- Controller image tag override; i.e., tag: "2.440.1-jdk21"
-    tag:
+    tag: "latest"
 
     # -- Controller image tag label
     tagLabel: jdk21

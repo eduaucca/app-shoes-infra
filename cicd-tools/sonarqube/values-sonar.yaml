@@ -541,14 +541,19 @@ annotations: {}
 ## the usage of SonarQube and the surrounding infrastructure.
 ## Those default are based on the default Web -Xmx2G -Xms128m and CE -Xmx4G -Xms128m and Search -Xmx2G -Xms2G settings of SQ sub processes
 ## Adjust these values to your needs, you can find more details on the main README of the chart.
+monitoringPasscode: "admin"
+
+community:
+  enabled: true
+
 resources:
   limits:
-    cpu: 800m
-    memory: 10240M
+    cpu: "2"
+    memory: "3Gi"
     ephemeral-storage: 512000M
   requests:
-    cpu: 400m
-    memory: 4096M
+    cpu: "500m"
+    memory: "1Gi"
     ephemeral-storage: 1536M
 
 persistence:

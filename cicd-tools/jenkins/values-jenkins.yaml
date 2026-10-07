@@ -35,6 +35,9 @@ extraLabels: {}
 # -- Configures extra manifests
 extraObjects:
 
+persistence:
+  enabled: true
+ 
 controller:
   # -- Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
@@ -54,6 +57,33 @@ controller:
 
   # -- Number of replicas. Max 1. Can be set to 0 for maintenance scenarios.
   replicas: 1
+  # -- Set Number of executors
+  numExecutors: 2
+
+  sidecars:
+    anotherContainers:
+      - name: dind
+        image: docker:dind
+        securityContext:
+          privileged: true
+        env:
+          - name: DOCKER_TLS_CERTDIR
+            value: ""
+        volumeMounts:
+          - name: docker-storage
+            mountPath: /var/lib/docker
+          - name: docker-socket
+            mountPath: /var/run  
+
+  extraVolumes:
+    - name: docker-storage
+      emptyDir: {}
+    - name: docker-socket
+      emptyDir: {}
+
+  extraVolumeMounts:
+    - name: docker-socket
+      mountPath: /var/run
 
   # -- Controller image pull secret
   imagePullSecretName:
@@ -68,10 +98,7 @@ controller:
   # -- Disable use of remember me
   disableRememberMe: false
 
-  # -- Set Number of executors
-  numExecutors: 0
-
-  # -- Sets the executor mode of the Jenkins node. Possible values are "NORMAL" or "EXCLUSIVE"
+    # -- Sets the executor mode of the Jenkins node. Possible values are "NORMAL" or "EXCLUSIVE"
   executorMode: "NORMAL"
 
   # -- Append Jenkins labels to the controller
@@ -123,11 +150,11 @@ controller:
   # -- Resource allocation (Requests and Limits)
   resources:
     requests:
-      cpu: "50m"
-      memory: "256Mi"
+      cpu: "100m"
+      memory: "512Mi"
     limits:
-      cpu: "2000m"
-      memory: "4096Mi"
+      cpu: "2"
+      memory: "3072Mi"
 
   # Share process namespace to allow sidecar containers to interact with processes in other containers in the same pod
   shareProcessNamespace: false

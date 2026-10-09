@@ -35,5 +35,5 @@ resource "azurerm_federated_identity_credential" "fic_shoes" {
   audience            = ["api://AzureADTokenExchange"]
   issuer              = azurerm_kubernetes_cluster.aks.oidc_issuer_url
   parent_id           = azurerm_user_assigned_identity.id_app.id
-  subject             = "system:serviceaccount:default:shoes-sa"
+  subject             = "system:serviceaccount:devops-tools:shoes-sa"
 }

@@ -1,6 +1,6 @@
 # App Shoes Infra - Terraform & Azure Platform
 
-Infrastructure as Code (IaC) and platform provisioning repository for the App Shoes ecosystem.
+Infrastructure as Code (IaC) and platform provisioning repository for the [app-shoes](https://github.com/eduaucca/app-shoes) ecosystem.
 
 It centralizes network configuration, clusters, container registries, and security policies in Microsoft Azure, ensuring a modular, repeatable deployment aligned with Zero Trust standards.
 

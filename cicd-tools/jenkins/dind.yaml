@@ -1,0 +1,30 @@
+controller:
+  podAnnotations:
+    container.apparmor.security.beta.kubernetes.io/dind: unconfined
+  sidecars:
+    additionalSidecarContainers:
+      - name: dind
+        image: docker:dind-rootless
+        securityContext:
+          privileged: true
+          seccompProfile:
+            type: Unconfined
+          runAsUser: 1000
+        env:
+          - name: DOCKER_TLS_CERTDIR
+            value: ""
+        volumeMounts:
+          - name: docker-storage
+            mountPath: /var/lib/docker
+          - name: docker-socket
+            mountPath: /var/run
+
+persistence:
+  volumes:
+    - name: docker-storage
+      emptyDir: {}
+    - name: docker-socket
+      emptyDir: {}
+  mounts:
+    - name: docker-socket
+      mountPath: /var/run

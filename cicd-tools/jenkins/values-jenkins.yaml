@@ -37,7 +37,7 @@ extraObjects:
 
 persistence:
   enabled: true
- 
+
 controller:
   # -- Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
@@ -57,35 +57,9 @@ controller:
 
   # -- Number of replicas. Max 1. Can be set to 0 for maintenance scenarios.
   replicas: 1
-  # -- Set Number of executors
   numExecutors: 2
 
-  sidecars:
-    anotherContainers:
-      - name: dind
-        image: docker:dind
-        securityContext:
-          privileged: true
-        env:
-          - name: DOCKER_TLS_CERTDIR
-            value: ""
-        volumeMounts:
-          - name: docker-storage
-            mountPath: /var/lib/docker
-          - name: docker-socket
-            mountPath: /var/run  
-
-  extraVolumes:
-    - name: docker-storage
-      emptyDir: {}
-    - name: docker-socket
-      emptyDir: {}
-
-  extraVolumeMounts:
-    - name: docker-socket
-      mountPath: /var/run
-
-  # -- Controller image pull secret
+   # -- Controller image pull secret
   imagePullSecretName:
   # -- Lifecycle specification for controller-container
   lifecycle: {}
@@ -597,9 +571,8 @@ controller:
   #   image: "alpine:3"
   #   imagePullPolicy: Always
   #   command: [ "uname", "-a" ]
-
-  sidecars:
-    configAutoReload:
+sidecars:      
+  configAutoReload:
       # If enabled: true, Jenkins Configuration as Code will be reloaded on-the-fly without a reboot.
       # If false or not-specified, JCasC changes will cause a reboot and will only be applied at the subsequent start-up.
       # Auto-reload uses the http://<jenkins_url>/reload-configuration-as-code endpoint to reapply config when changes to
@@ -680,7 +653,6 @@ controller:
         allowPrivilegeEscalation: false
 
     # -- Configures additional sidecar container(s) for the Jenkins controller
-    additionalSidecarContainers: []
     ## The example below runs the client for https://smee.io as sidecar container next to Jenkins,
     ## that allows triggering build behind a secure firewall.
     ## https://jenkins.io/blog/2019/01/07/webhook-firewalls/#triggering-builds-with-webhooks-behind-a-secure-firewall
@@ -1114,7 +1086,7 @@ agent:
   # Configure the attributes as they appear in the corresponding Java class for that type
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes
   # -- Additional volumes
-  volumes: []
+  # volumes: []
   # - type: ConfigMap
   #   configMapName: myconfigmap
   #   mountPath: /var/myapp/myconfigmap
@@ -1377,7 +1349,7 @@ persistence:
   # -- SubPath for jenkins-home mount
   subPath:
   # -- Additional volumes
-  volumes: []
+  # volumes: []
   #  - name: nothing
   #    emptyDir: {}
 
